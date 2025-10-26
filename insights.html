@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather Data Dashboard - Insights</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .insights-main { padding: 2.5em 6% 2em 6%; }
+        .insights-header { text-align: left; color: #1a5673; font-size: 2.15em; font-weight: bold; }
+        .insights-desc { margin-bottom: 2.2em; color: #28649a; }
+        .insights-highlights { display: flex; gap: 2em; flex-wrap: wrap; margin-bottom: 2.5em; }
+        .insight-card {
+            background: linear-gradient(120deg, #e8fcfa 65%, #f2f0fc 100%);
+            border-radius: 10px;
+            box-shadow: 0 2px 14px #93e3d340;
+            padding: 1.3em 2em;
+            min-width: 230px;
+            flex: 1;
+            margin-bottom: 1em;
+        }
+        .insight-card-title { color: #229c91; font-size: 1.1em; margin-bottom: .4em; }
+        .insight-card-main { font-size: 1.5em; font-weight: bold; color: #157ba6; margin-bottom: .4em; }
+        .insight-panel {
+            background: #fff;
+            border-radius: 13px;
+            box-shadow: 0 3px 16px #7bdeef38;
+            margin-bottom: 2em; padding: 1.5em;
+        }
+        .insight-panel h3 { color: #24736d; font-size: 1.2em; margin-bottom: 1em; }
+        .insight-list { margin-top: 0.8em; color: #20546f; font-size: 1.07em; }
+        .insight-chart-row { display: flex; gap: 2em; flex-wrap: wrap; }
+    </style>
+</head>
+<body>
+<header>
+    <nav>
+        <div class="logo">Weather Dashboard</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="analytics.html">Analytics</a></li>
+            <li><a href="insights.html" class="active">Insights</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+<main class="insights-main">
+    <div class="insights-header">Key Insights & Analysis</div>
+    <div class="insights-desc">
+        This page summarizes the most important weather trends, state outliers, comparative statistics, and key stories for 2025 and previous years. Explore the major findings and supporting data below.
+    </div>
+
+    <!-- Highlights Cards -->
+    <div class="insights-highlights">
+        <div class="insight-card"><div class="insight-card-title">Highest Rainfall State</div><div class="insight-card-main">Kerala</div><div>368 mm in 2025 (↑6.7% YoY)</div></div>
+        <div class="insight-card"><div class="insight-card-title">Lowest Rainfall State</div><div class="insight-card-main">Rajasthan</div><div>150 mm (↓2.0% YoY)</div></div>
+        <div class="insight-card"><div class="insight-card-title">Coldest State</div><div class="insight-card-main">Himachal Pradesh</div><div>12°C Avg Temp</div></div>
+        <div class="insight-card"><div class="insight-card-title">Warmest State</div><div class="insight-card-main">Rajasthan</div><div>36°C Max Temp</div></div>
+        <div class="insight-card"><div class="insight-card-title">Most Improved</div><div class="insight-card-main">Gujarat</div><div>+8% Rainfall YoY</div></div>
+        <div class="insight-card"><div class="insight-card-title">Most Extreme Events</div><div class="insight-card-main">Delhi</div><div>3 Heatwaves</div></div>
+    </div>
+
+    <!-- Key Trends Panel -->
+    <div class="insight-panel">
+        <h3>Key Trends and Findings</h3>
+        <ul class="insight-list">
+            <li>Kerala leads India in rainfall again, with a 6.7% jump compared to last year; Rajasthan is lowest.</li>
+            <li>Rajasthan experienced the hottest temperatures (36°C), while Himachal Pradesh was coldest (12°C average).</li>
+            <li>Delhi endured the most extreme weather events, including 3 heatwaves not seen in other states.</li>
+            <li>Gujarat showed the strongest year-on-year rainfall improvement (+8%).</li>
+            <li>Southern and North-Eastern states had the highest overall humidity in 2025.</li>
+            <li>Panjab, Tamil Nadu, and Maharashtra had consistent rainfall with little fluctuation year-to-year.</li>
+            <li>Coastal states faced higher wind speeds, averaging 12-16km/h.</li>
+        </ul>
+    </div>
+
+    <!-- Weather Events Timeline -->
+    <div class="insight-panel">
+        <h3>Major Weather Events Timeline (2025)</h3>
+        <ul class="insight-list">
+            <li><b>March:</b> Early heatwave in Delhi and Uttar Pradesh</li>
+            <li><b>June:</b> Monsoon onset in Kerala, record rainfall across the south</li>
+            <li><b>August:</b> Flash floods in Assam and West Bengal</li>
+            <li><b>September:</b> Drought conditions in Rajasthan and Haryana</li>
+            <li><b>November:</b> Cyclone impact on Andhra Pradesh coast</li>
+        </ul>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="insight-chart-row">
+        <div class="insight-panel">
+            <h3>Rainfall Outliers Comparison</h3>
+            <canvas id="outlierChart"></canvas>
+        </div>
+        <div class="insight-panel">
+            <h3>Temperature Trends (Top 5 States)</h3>
+            <canvas id="tempTrendChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Top 10 States by Rainfall Table -->
+    <div class="insight-panel">
+        <h3>Top 10 States by Rainfall (2025)</h3>
+        <table class="bi-table" id="topRainfallTable">
+            <thead>
+            <tr><th>Rank</th><th>State</th><th>Rainfall (mm)</th><th>YoY Change (%)</th></tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</main>
+<footer>
+    &copy; 2025 Weather Data Dashboard | Connect with us:
+    <a href="#" class="social">Twitter</a> |
+    <a href="#" class="social">LinkedIn</a>
+</footer>
+<script>
+    // Rainfall Outliers Chart
+    new Chart(document.getElementById('outlierChart'), {
+        type: 'bar',
+        data: {
+            labels: ["Kerala", "Tamil Nadu", "Odisha", "Gujarat", "Delhi"],
+            datasets: [{ label: "2025 Rainfall (mm)", data: [368, 230, 188, 205, 180], backgroundColor: '#48b4df' }]
+        }
+    });
+    // Temperature Trends Line Chart
+    new Chart(document.getElementById('tempTrendChart'), {
+        type: 'line',
+        data: {
+            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+            datasets: [
+                {label:"Rajasthan", data:[23,28,32,35,36,34], borderColor:"#eb5e28", fill:false},
+                {label:"Tamil Nadu", data:[25,27,29,33,34,32], borderColor:"#3977b4", fill:false},
+                {label:"Delhi", data:[15,18,23,28,36,35], borderColor:"#ffc107", fill:false},
+                {label:"Kerala", data:[22,24,26,28,30,29], borderColor:"#22b886", fill:false},
+                {label:"Gujarat", data:[24,27,29,31,34,32], borderColor:"#b64fc8", fill:false}
+            ]
+        }
+    });
+    // Top 10 Rainfall Table
+    const topStates = [
+        [1,"Kerala",368,"+6.7%"],[2,"Tamil Nadu",230,"+7.0%"],[3,"Maharashtra",227,"+4.5%"],[4,"Meghalaya",224,"+5.9%"],[5,"West Bengal",209,"+3.2%"],
+        [6,"Gujarat",205,"+8.0%"],[7,"Odisha",188,"-12.0%"],[8,"Assam",185,"+2.1%"],[9,"Delhi",180,"+5.9%"],[10,"Punjab",175,"+1.8%"]
+    ];
+    const tbody = document.getElementById('topRainfallTable').getElementsByTagName("tbody")[0];
+    topStates.forEach(rowData => {
+        const row = document.createElement("tr");
+        rowData.forEach(val => {
+            const td = document.createElement("td");
+            td.textContent = val;
+            row.appendChild(td);
+        });
+        tbody.appendChild(row);
+    });
+</script>
+</body>
+</html>

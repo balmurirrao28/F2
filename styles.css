@@ -1,0 +1,166 @@
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    background: #f6f6f6;
+    color: #222;
+}
+header {
+    background: #128a43;
+    color: #fff;
+    padding: 0.6em 0;
+}
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+    margin: auto;
+}
+.logo {
+    font-size: 1.6em;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1em;
+}
+.nav-links li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+.nav-links li a:hover {
+    color: #ffe066;
+}
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #e3f7ed;
+    padding: 2em 10%;
+}
+.hero-content {
+    max-width: 50%;
+}
+.hero h1 {
+    font-size: 2.5em;
+    margin-bottom: 0.3em;
+}
+.tagline {
+    font-size: 1.2em;
+    margin-bottom: 1.2em;
+    color: #128a43;
+}
+.hero button {
+    padding: 0.7em 2em;
+    background: #128a43;
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    font-size: 1em;
+    cursor: pointer;
+    margin-top: 0.5em;
+}
+.hero button:hover {
+    background: #0f6c34;
+}
+.india-map {
+    width: 300px;
+    margin-left: 2em;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px #0001;
+}
+.overview {
+    background: #fff;
+    padding: 2em 10%;
+    text-align: center;
+}
+.overview h2 {
+    color: #128a43;
+    margin-bottom: 0.2em;
+}
+.quick-links {
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+    background: #edf8f1;
+    padding: 1.5em 0;
+}
+.quick-links button {
+    padding: 0.6em 1.5em;
+    background: #25a765;
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    font-size: 1em;
+    transition: background 0.2s;
+}
+.quick-links button:hover {
+    background: #167a4c;
+}
+.how-it-works {
+    display: flex;
+    justify-content: center;
+    gap: 2em;
+    margin: 2em 10%;
+}
+.card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 6px #0001;
+    padding: 1.2em 2em;
+    font-size: 1.2em;
+    font-weight: 500;
+    text-align: center;
+}
+.sdgs {
+    display: flex;
+    justify-content: center;
+    gap: 1.5em;
+    margin: 2em 0;
+}
+.sdgs img {
+    width: 56px;
+    height: 56px;
+    border-radius: 8px;
+}
+footer {
+    text-align: center;
+    background: #128a43;
+    color: #fff;
+    padding: 1em 0;
+    margin-top: 2em;
+}
+footer .social {
+    color: #ffe066;
+    margin: 0 0.2em;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+footer .social:hover {
+    color: #fff;
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+    .hero {
+        flex-direction: column;
+        padding: 2em 2%;
+    }
+    .hero-content {
+        max-width: 100%;
+        text-align: center;
+    }
+    .india-map {
+        margin: 1.5em 0 0 0;
+        width: 220px;
+    }
+    .how-it-works, .quick-links {
+        flex-direction: column;
+        align-items: center;
+        gap: 1em;
+    }
+}

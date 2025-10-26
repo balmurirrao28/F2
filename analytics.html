@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather Data Dashboard - Analytics</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .analytics-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .analytics-header h1 {
+            font-size: 2.2em;
+            color: #2070c7;
+            margin: 0;
+        }
+        .analytics-filters select {
+            margin-right: .8em;
+            padding: .6em 1.1em;
+            border-radius: 6px;
+            border: 1px solid #9dcbeb;
+            background: #fafdff;
+        }
+        .analytics-cards {
+            display: flex; gap: 2.5em; margin-bottom: 2em;
+        }
+        .analytics-card {
+            background: linear-gradient(100deg, #eef7fa 60%, #d5f6eb 100%);
+            border-radius: 12px;
+            box-shadow: 0 4px 16px #aee3ff33;
+            padding: 1em 2.6em;
+            min-width: 185px;
+            text-align: center;
+            display: flex; flex-direction: column; align-items: center;
+        }
+        .analytics-card-icon {
+            font-size: 1.7em; margin-bottom: 8px; color: #3ca7fc;
+        }
+        .analytics-card-title {
+            font-size: 1em; color: #2070c7; margin-bottom: 0.2em;
+        }
+        .analytics-card-value {
+            font-size: 1.8em; color: #18b69c; font-weight: bold;
+        }
+        .analytics-row {
+            display: flex; gap: 2.3em; flex-wrap: wrap; justify-content: center;
+        }
+        .analytics-panel {
+            background: #fff;
+            border-radius: 13px;
+            box-shadow: 0 3px 18px #9fe5df55;
+            flex-basis: 430px;
+            flex-grow: 1;
+            min-width: 340px;
+            margin-bottom: 1.2em;
+            padding: 1.5em 1.2em 1.2em 1.2em;
+        }
+        .analytics-panel h3 { color: #228c8b; margin-bottom: 1em; }
+        .bi-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1em;
+            background: #fafdff;
+        }
+        .bi-table th, .bi-table td {
+            border: 1px solid #c3e0f0;
+            padding: .5em 1em;
+            text-align: left;
+        }
+        .bi-table th { background: #e4f2ff; color: #228c8b; }
+    </style>
+</head>
+<body>
+<header>
+    <nav>
+        <div class="logo">Weather Dashboard</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="analytics.html" class="active">Analytics</a></li>
+            <li><a href="insights.html">Insights</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+<main class="dashboard-bi-main">
+    <div class="analytics-header">
+        <h1>Weather Analytics</h1>
+        <div class="analytics-filters">
+            <select>
+                <option>All States / UT</option>
+                <option>Kerala</option>
+                <option>Tamil Nadu</option>
+                <option>Maharashtra</option>
+                <option>Delhi</option>
+                <!-- Add all as in dashboard page -->
+            </select>
+            <select>
+                <option>Rainfall</option>
+                <option>Temperature</option>
+                <option>Humidity</option>
+            </select>
+            <select>
+                <option>2025</option>
+                <option>2024</option>
+                <option>2023</option>
+            </select>
+        </div>
+    </div>
+    <div class="analytics-cards">
+        <div class="analytics-card">
+            <span class="analytics-card-icon">🌧️</span>
+            <div class="analytics-card-title">Highest Avg. Rainfall</div>
+            <div class="analytics-card-value">368 mm</div>
+            <div>Kerala</div>
+        </div>
+        <div class="analytics-card">
+            <span class="analytics-card-icon">🌡️</span>
+            <div class="analytics-card-title">Max Temperature</div>
+            <div class="analytics-card-value">36°C</div>
+            <div>Rajasthan</div>
+        </div>
+        <div class="analytics-card">
+            <span class="analytics-card-icon">📈</span>
+            <div class="analytics-card-title">Best YoY Improvement</div>
+            <div class="analytics-card-value">+8%</div>
+            <div>Gujarat</div>
+        </div>
+    </div>
+    <div class="analytics-row">
+        <div class="analytics-panel">
+            <h3>Rainfall Comparison (2024 vs 2025)</h3>
+            <canvas id="rainfallYOY"></canvas>
+        </div>
+        <div class="analytics-panel">
+            <h3>Temperature Distribution</h3>
+            <canvas id="tempHistogram"></canvas>
+        </div>
+        <div class="analytics-panel">
+            <h3>State Performance Table</h3>
+            <table class="bi-table" id="analyticsTable">
+                <thead>
+                <tr><th>State</th><th>2025 Rainfall</th><th>2024 Rainfall</th><th>Change (%)</th></tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</main>
+<footer>
+    &copy; 2025 Weather Data Dashboard | Follow us:
+    <a href="#" class="social">Twitter</a> |
+    <a href="#" class="social">LinkedIn</a>
+</footer>
+<script>
+    // Chart.js sample data for Rainfall Comparison Line Chart
+    new Chart(document.getElementById('rainfallYOY'), {
+        type: 'line',
+        data: {
+            labels: ["Kerala", "Tamil Nadu", "Maharashtra", "Delhi"],
+            datasets: [
+                { label: "2024", data: [345, 215, 230, 170], borderColor: '#3498db', backgroundColor:'#cfe7ff', fill: false },
+                { label: "2025", data: [368, 230, 245, 180], borderColor: '#18b69c', backgroundColor:'#c6f6e4', fill: false }
+            ]
+        },
+        options: {responsive:true}
+    });
+    // Bar (Histogram) for temperature bins
+    new Chart(document.getElementById('tempHistogram'), {
+        type: 'bar',
+        data: {
+            labels: ["20-24°C", "25-29°C", "30-34°C", "35-39°C"],
+            datasets: [{ label: 'States', data: [3, 8, 15, 10], backgroundColor: '#2070c7' }]
+        },
+        options: {responsive:true}
+    });
+    // Table: State-wise Rainfall & % change
+    const analyticsData = [
+        ["Kerala", 368, 345, "+6.7%"],
+        ["Tamil Nadu", 230, 215, "+7.0%"],
+        ["Maharashtra", 245, 230, "+6.5%"],
+        ["Delhi", 180, 170, "+5.9%"],
+        ["Rajasthan", 150, 140, "+7.1%"]
+    ];
+    const tbody2 = document.getElementById('analyticsTable').getElementsByTagName("tbody")[0];
+    analyticsData.forEach(state => {
+        const row = document.createElement("tr");
+        state.forEach(val => {
+            const td = document.createElement("td");
+            td.textContent = val;
+            row.appendChild(td);
+        });
+        tbody2.appendChild(row);
+    });
+</script>
+</body>
+</html>

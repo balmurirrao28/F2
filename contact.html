@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact | Weather Data Dashboard</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <style>
+        .contact-main { padding: 2.5em 7% 2em 7%; }
+        .contact-header { font-size: 2.1em; color: #227aba; font-weight: bold; margin-bottom: 1.1em; }
+        .contact-section {
+            background: linear-gradient(120deg, #f4fcfc 78%, #e0eafd 100%);
+            border-radius: 12px;
+            box-shadow: 0 2px 18px #bad0e833;
+            margin-bottom: 2em;
+            padding: 1.5em 2em;
+            max-width: 500px;
+        }
+        .contact-form {
+            display: flex; flex-direction: column; gap: 1.1em;
+        }
+        .contact-form input, .contact-form textarea {
+            padding: 0.7em; border-radius: 7px; border: 1px solid #b0c9e3;
+            font-size: 1em;
+        }
+        .contact-form textarea { min-height: 90px; }
+        .contact-form button {
+            background: #249965; color: #fff; border: none; border-radius: 7px;
+            padding: 0.75em 1.6em; font-size: 1.09em; font-weight: bold; cursor: pointer;
+        }
+        .contact-form button:hover { background: #227aba; }
+    </style>
+</head>
+<body>
+<header>
+    <nav>
+        <div class="logo">Weather Dashboard</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="analytics.html">Analytics</a></li>
+            <li><a href="insights.html">Insights</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html" class="active">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+<main class="contact-main">
+    <div class="contact-header">Contact Us</div>
+    <div class="contact-section">
+        <form class="contact-form">
+            <input type="text" name="name" placeholder="Your Name (optional)">
+            <input type="email" name="email" placeholder="Your Email (required)">
+            <textarea name="message" placeholder="Your Message" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+        <div style="margin-top:1.4em; color:#2e6c79; font-size:1.02em;">
+            We'll get back to you as soon as possible. For general queries or technical support, refer to the About page or the FAQ.
+        </div>
+    </div>
+</main>
+<footer>
+    &copy; 2025 Weather Data Dashboard | Connect with us:
+    <a href="#" class="social">Twitter</a> |
+    <a href="#" class="social">LinkedIn</a>
+</footer>
+</body>
+</html>

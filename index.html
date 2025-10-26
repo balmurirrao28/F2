@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather Data Dashboard</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <nav>
+            <div class="logo">Weather Dashboard</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="analytics.html">Analytics</a></li>
+                <li><a href="insights.html">Insights</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Weather Data Dashboard</h1>
+            <p class="tagline">Tracking Climate Progress Across Indian States</p>
+            <button onclick="route('dashboard.html')">Explore Dashboard</button>
+        </div>
+        <img src="images/india-map.png" alt="Map of India" class="india-map">
+    </section>
+
+    <!-- Overview -->
+    <section class="overview">
+        <h2>Welcome!</h2>
+        <p>
+            This micro project simplifies the tracking of climate and weather trends in Indian states to support sustainable development and climate action.
+            Explore interactive charts and maps that reveal state-wise climate progress, gaps, and regional patterns.
+        </p>
+    </section>
+
+    <!-- Quick Links -->
+    <section class="quick-links">
+        <button onclick="route('analytics.html')">Compare States</button>
+        <button onclick="route('insights.html')">Download Reports</button>
+        <button onclick="route('contact.html')">Contact Us</button>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works">
+        <div class="card">Step 1: <br> Collect Data</div>
+        <div class="card">Step 2: <br> Analyze & Visualize</div>
+        <div class="card">Step 3: <br> Provide Insights</div>
+    </section>
+
+    <!-- Climate Action Icons Section -->
+    <section class="climate-icons">
+        <img src="images/climate-action.png" alt="Climate Action" title="Climate Action">
+        <img src="images/zero-hunger.png" alt="Zero Hunger" title="Zero Hunger">
+        <img src="images/clean-water.png" alt="Clean Water" title="Clean Water">
+        <img src="images/sustainable-cities.png" alt="Sustainable Cities" title="Sustainable Cities">
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        &copy; 2025 Weather Data Dashboard | Follow us:
+        <a href="#" class="social">Twitter</a> |
+        <a href="#" class="social">LinkedIn</a>
+    </footer>
+    <script src="js/main.js"></script>
+</body>
+</html>

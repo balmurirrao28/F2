@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather Data Dashboard - Dashboard</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .map-label {
+            position: absolute;
+            background: rgba(45, 147, 255, 0.87);
+            color: #fff;
+            font-size: 0.98em;
+            padding: 4px 9px;
+            border-radius: 8px;
+            box-shadow: 0 2px 7px #aaa3;
+            text-align: center;
+            pointer-events: none;
+            z-index: 2;
+            line-height: 1.3em;
+        }
+        .bi-map {
+            display: block;
+            width: 320px;
+            height: 400px;
+            border-radius: 10px;
+            box-shadow: 0 2px 9px #b1b1b144;
+        }
+        .dashboard-bi-row {
+            display: flex;
+            gap: 2.5em;
+            justify-content: center;
+            align-items: stretch;
+            margin-bottom: 3em;
+            flex-wrap: wrap;
+        }
+        .dashboard-bi-panel {
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 3px 18px #aee3ff33;
+            flex-basis: 480px;
+            flex-grow: 1;
+            min-width: 350px;
+            margin-bottom: 1.2em;
+            padding: 1.6em 1.5em .5em 1.5em;
+        }
+        .dashboard-bi-panel h3 {
+            color: #227fa0;
+            font-size: 1.2em;
+            margin-bottom: 1em;
+        }
+        .bi-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1em;
+        }
+        .bi-table th, .bi-table td {
+            border: 1px solid #c3e0f0;
+            padding: .5em 1em;
+            text-align: left;
+        }
+        .bi-table th {
+            background: #e4f2ff;
+            color: #227fa0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Weather Dashboard</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="dashboard.html" class="active">Dashboard</a></li>
+                <li><a href="analytics.html">Analytics</a></li>
+                <li><a href="insights.html">Insights</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="dashboard-bi-main">
+        <div class="dashboard-header">
+            <h1>Weather Data Dashboard</h1>
+            <div class="dashboard-bi-filters">
+                <select id="state-select">
+                    <option value="all">All States/UT</option>
+                    <option value="andhra-pradesh">Andhra Pradesh</option>
+                    <option value="arunachal-pradesh">Arunachal Pradesh</option>
+                    <option value="assam">Assam</option>
+                    <option value="bihar">Bihar</option>
+                    <option value="chhattisgarh">Chhattisgarh</option>
+                    <option value="goa">Goa</option>
+                    <option value="gujarat">Gujarat</option>
+                    <option value="haryana">Haryana</option>
+                    <option value="himachal-pradesh">Himachal Pradesh</option>
+                    <option value="jharkhand">Jharkhand</option>
+                    <option value="karnataka">Karnataka</option>
+                    <option value="kerala">Kerala</option>
+                    <option value="madhya-pradesh">Madhya Pradesh</option>
+                    <option value="maharashtra">Maharashtra</option>
+                    <option value="manipur">Manipur</option>
+                    <option value="meghalaya">Meghalaya</option>
+                    <option value="mizoram">Mizoram</option>
+                    <option value="nagaland">Nagaland</option>
+                    <option value="odisha">Odisha</option>
+                    <option value="punjab">Punjab</option>
+                    <option value="rajasthan">Rajasthan</option>
+                    <option value="sikkim">Sikkim</option>
+                    <option value="tamil-nadu">Tamil Nadu</option>
+                    <option value="telangana">Telangana</option>
+                    <option value="tripura">Tripura</option>
+                    <option value="uttar-pradesh">Uttar Pradesh</option>
+                    <option value="uttarakhand">Uttarakhand</option>
+                    <option value="west-bengal">West Bengal</option>
+                    <option value="andaman-nicobar">Andaman and Nicobar Islands</option>
+                    <option value="chandigarh">Chandigarh</option>
+                    <option value="dadra-nagar-haveli-daman-diu">Dadra and Nagar Haveli and Daman and Diu</option>
+                    <option value="delhi">Delhi</option>
+                    <option value="lakshadweep">Lakshadweep</option>
+                    <option value="puducherry">Puducherry</option>
+                    <option value="jammu-kashmir">Jammu and Kashmir</option>
+                    <option value="ladakh">Ladakh</option>
+                </select>
+                <select id="indicator-select">
+                    <option value="temperature">Temperature</option>
+                    <option value="rainfall">Rainfall</option>
+                    <option value="humidity">Humidity</option>
+                </select>
+                <select id="period-select">
+                    <option value="2025">2025</option>
+                    <option value="2024">2024</option>
+                    <option value="2023">2023</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="dashboard-bi-cards">
+            <div class="bi-card">
+                <h2>Highest Rainfall</h2>
+                <div>
+                    <span class="bi-card-value" id="top-rain-state">Kerala</span>
+                    <span class="bi-card-label" id="top-rain-data">368 mm</span>
+                </div>
+            </div>
+            <div class="bi-card">
+                <h2>Average Temperature</h2>
+                <div>
+                    <span class="bi-card-value" id="avg-temp-state">Tamil Nadu</span>
+                    <span class="bi-card-label" id="avg-temp-data">33.8°C</span>
+                </div>
+            </div>
+            <div class="bi-card">
+                <h2>Most Improved State</h2>
+                <div>
+                    <span class="bi-card-value" id="most-improved-state">Gujarat</span>
+                    <span class="bi-card-label" id="most-improved-data">+9%</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-bi-row">
+            <!-- India Map Panel with All State/UT overlays -->
+            <div class="dashboard-bi-panel" style="position: relative;">
+                <h3>India Weather Map (Demo Data)</h3>
+                <div style="position:relative; width:320px; height:400px; margin:auto;">
+                    <img src="images/india-map.jpg" alt="India Map" class="bi-map">
+                    <div class="map-label" style="top:70px; left:110px;">Delhi<br>33°C<br>Wind: 12</div>
+                    <div class="map-label" style="top:220px; left:110px;">Maharashtra<br>31°C<br>Wind: 10</div>
+                    <div class="map-label" style="top:180px; left:230px;">West Bengal<br>34°C<br>Wind: 13</div>
+                    <div class="map-label" style="top:140px; left:60px;">Punjab<br>28°C<br>Wind: 9</div>
+                    <div class="map-label" style="top:260px; left:200px;">Kerala<br>29°C<br>Wind: 11</div>
+                    <div class="map-label" style="top:95px; left:85px;">Haryana<br>29°C<br>Wind: 8</div>
+                    <div class="map-label" style="top:170px; left:180px;">Odisha<br>32°C<br>Wind: 14</div>
+                    <div class="map-label" style="top:180px; left:60px;">Rajasthan<br>37°C<br>Wind: 10</div>
+                    <div class="map-label" style="top:130px; left:210px;">Bihar<br>35°C<br>Wind: 13</div>
+                    <div class="map-label" style="top:80px; left:170px;">Uttar Pradesh<br>35°C<br>Wind: 8</div>
+                    <div class="map-label" style="top:320px; left:100px;">Karnataka<br>31°C<br>Wind: 14</div>
+                    <div class="map-label" style="top:320px; left:55px;">Goa<br>32°C<br>Wind: 11</div>
+                    <div class="map-label" style="top:300px; left:130px;">Tamil Nadu<br>33°C<br>Wind: 16</div>
+                    <div class="map-label" style="top:320px; left:170px;">Andhra Pradesh<br>30°C<br>Wind: 12</div>
+                    <div class="map-label" style="top:210px; left:170px;">Madhya Pradesh<br>36°C<br>Wind: 10</div>
+                    <div class="map-label" style="top:50px; left:140px;">Uttarakhand<br>21°C<br>Wind: 7</div>
+                    <div class="map-label" style="top:30px; left:190px;">Sikkim<br>20°C<br>Wind: 10</div>
+                    <div class="map-label" style="top:60px; left:190px;">Jharkhand<br>31°C<br>Wind: 9</div>
+                    <div class="map-label" style="top:170px; left:250px;">Tripura<br>30°C<br>Wind: 14</div>
+                    <div class="map-label" style="top:85px; left:220px;">Meghalaya<br>26°C<br>Wind: 13</div>
+                    <div class="map-label" style="top:140px; left:250px;">Nagaland<br>24°C<br>Wind: 11</div>
+                    <div class="map-label" style="top:100px; left:260px;">Manipur<br>25°C<br>Wind: 13</div>
+                    <div class="map-label" style="top:320px; left:250px;">Telangana<br>32°C<br>Wind: 15</div>
+                    <div class="map-label" style="top:350px; left:60px;">Puducherry<br>34°C<br>Wind: 15</div>
+                    <div class="map-label" style="top:330px; left:120px;">Andaman & Nicobar<br>29°C<br>Wind: 15</div>
+                    <div class="map-label" style="top:15px; left:160px;">Arunachal Pradesh<br>19°C<br>Wind: 10</div>
+                    <div class="map-label" style="top:10px; left:110px;">Himachal Pradesh<br>15°C<br>Wind: 6</div>
+                    <div class="map-label" style="top:10px; left:80px;">Jammu & Kashmir<br>12°C<br>Wind: 7</div>
+                    <div class="map-label" style="top:5px; left:200px;">Ladakh<br>7°C<br>Wind: 9</div>
+                    <div class="map-label" style="top:340px; left:270px;">Chhattisgarh<br>32°C<br>Wind: 12</div>
+                    <div class="map-label" style="top:370px; left:110px;">Dadra & Nagar Haveli<br>30°C<br>Wind: 12</div>
+                    <div class="map-label" style="top:360px; left:200px;">Daman & Diu<br>31°C<br>Wind: 14</div>
+                    <div class="map-label" style="top:380px; left:140px;">Lakshadweep<br>28°C<br>Wind: 19</div>
+                    <div class="map-label" style="top:10px; left:60px;">Chandigarh<br>19°C<br>Wind: 8</div>
+                </div>
+            </div>
+            <!-- Bar Chart Panel -->
+            <div class="dashboard-bi-panel">
+                <h3>Rainfall by State (Bar Chart)</h3>
+                <canvas id="rainfallChart"></canvas>
+            </div>
+            <!-- Line Chart Panel -->
+            <div class="dashboard-bi-panel">
+                <h3>Temperature Trend (Line Chart)</h3>
+                <canvas id="temperatureChart"></canvas>
+            </div>
+            <!-- Pie Chart Panel -->
+            <div class="dashboard-bi-panel">
+                <h3>Rainfall Share (Pie Chart)</h3>
+                <canvas id="rainfallPie"></canvas>
+            </div>
+            <!-- Data Table Panel -->
+            <div class="dashboard-bi-panel">
+                <h3>State Wise Data Table</h3>
+                <table class="bi-table" id="dataTable">
+                    <thead>
+                        <tr><th>State</th><th>Rainfall (mm)</th><th>Temp (°C)</th><th>Humidity (%)</th></tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+           <div class="dashboard-bi-panel" style="position: relative;">
+   <h3>India Weather Map (Demo Data)</h3>
+   <div style="position:relative; width:320px; height:400px; margin:auto;">
+      <img src="images/india-map.jpg" alt="India Map" class="bi-map">
+      <!-- (Add map labels and overlays here if needed) -->
+   </div>
+</div>
+    </main>
+
+    <footer>
+        &copy; 2025 Weather Data Dashboard | Follow us:
+        <a href="#" class="social">Twitter</a> |
+        <a href="#" class="social">LinkedIn</a>
+    </footer>
+    <script>
+        // Bar chart
+        new Chart(document.getElementById('rainfallChart'), {
+            type: 'bar',
+            data: {
+                labels: ["Kerala", "Tamil Nadu", "Maharashtra", "Delhi", "Punjab"],
+                datasets: [{ label: 'Rainfall (mm)', data: [368, 230, 245, 180, 175], backgroundColor: '#4e9fa3' }]
+            }
+        });
+        // Line chart
+        new Chart(document.getElementById('temperatureChart'), {
+            type: 'line',
+            data: {
+                labels: ["Jan", "Feb", "Mar", "Apr"],
+                datasets: [{ label: 'Avg. Temp (°C)', data: [24, 26, 28, 29], borderColor: "#f39c12", fill: false }]
+            }
+        });
+        // Pie chart
+        new Chart(document.getElementById('rainfallPie'), {
+            type: 'pie',
+            data: {
+                labels: ["Kerala", "Tamil Nadu", "Maharashtra"],
+                datasets: [{ data: [368, 230, 245], backgroundColor: ["#3498db", "#2ecc71", "#e67e22"] }]
+            }
+        });
+        // Data Table demo
+        const states = [
+  // --- States ---
+  ["Andhra Pradesh", 310, 27, 59],
+  ["Arunachal Pradesh", 265, 29, 60],
+  ["Assam", 280, 26, 57],
+  ["Bihar", 240, 30, 55],
+  ["Chhattisgarh", 250, 28, 58],
+  ["Goa", 195, 33, 64],
+  ["Gujarat", 270, 31, 60],
+  ["Haryana", 220, 30, 61],
+  ["Himachal Pradesh", 200, 29, 63],
+  ["Jharkhand", 235, 28, 56],
+  ["Karnataka", 255, 31, 59],
+  ["Kerala", 368, 28, 62],
+  ["Madhya Pradesh", 245, 29, 57],
+  ["Maharashtra", 245, 31, 55],
+  ["Manipur", 215, 28, 60],
+  ["Meghalaya", 205, 27, 59],
+  ["Mizoram", 210, 26, 61],
+  ["Nagaland", 225, 27, 58],
+  ["Odisha", 240, 28, 57],
+  ["Punjab", 175, 28, 62],
+  ["Rajasthan", 260, 32, 56],
+  ["Sikkim", 190, 25, 64],
+  ["Tamil Nadu", 230, 33.8, 58],
+  ["Telangana", 255, 32, 59],
+  ["Tripura", 205, 26, 60],
+  ["Uttar Pradesh", 235, 29, 54],
+  ["Uttarakhand", 215, 27, 61],
+  ["West Bengal", 250, 30, 58],
+
+  // --- Union Territories ---
+  ["Andaman and Nicobar Islands", 180, 29, 63],
+  ["Chandigarh", 195, 32, 65],
+  ["Dadra and Nagar Haveli and Daman and Diu", 185, 31, 60],
+  ["Delhi", 180, 33, 48],
+  ["Jammu and Kashmir", 210, 28, 59],
+  ["Ladakh", 200, 25, 62],
+  ["Lakshadweep", 190, 31, 64],
+  ["Puducherry", 195, 32, 63]
+];
+
+        const tbody = document.getElementById('dataTable').getElementsByTagName("tbody")[0];
+        states.forEach(state => {
+            const row = document.createElement("tr");
+            state.forEach(val => {
+                const td = document.createElement("td");
+                td.textContent = val;
+                row.appendChild(td);
+            });
+            tbody.appendChild(row);
+        });
+    </script>
+</body>
+<script>
+const mapConfig = [
+  {sel: "Delhi", id: "Delhi", city: "New Delhi"},
+  {sel: "Maharashtra", id: "Maharashtra", city: "Mumbai"},
+  {sel: "West Bengal", id: "West Bengal", city: "Kolkata"},
+  {sel: "Punjab", id: "Punjab", city: "Chandigarh"},
+  {sel: "Kerala", id: "Kerala", city: "Thiruvananthapuram"},
+  {sel: "Haryana", id: "Haryana", city: "Chandigarh"},
+  {sel: "Odisha", id: "Odisha", city: "Bhubaneswar"},
+  {sel: "Rajasthan", id: "Rajasthan", city: "Jaipur"},
+  {sel: "Bihar", id: "Bihar", city: "Patna"},
+  {sel: "Uttar Pradesh", id: "Uttar Pradesh", city: "Lucknow"},
+  {sel: "Karnataka", id: "Karnataka", city: "Bangalore"},
+  {sel: "Goa", id: "Goa", city: "Panaji"},
+  {sel: "Tamil Nadu", id: "Tamil Nadu", city: "Chennai"},
+  {sel: "Andhra Pradesh", id: "Andhra Pradesh", city: "Amaravati"},
+  {sel: "Madhya Pradesh", id: "Madhya Pradesh", city: "Bhopal"},
+  {sel: "Uttarakhand", id: "Uttarakhand", city: "Dehradun"},
+  {sel: "Sikkim", id: "Sikkim", city: "Gangtok"},
+  {sel: "Jharkhand", id: "Jharkhand", city: "Ranchi"},
+  {sel: "Tripura", id: "Tripura", city: "Agartala"},
+  {sel: "Meghalaya", id: "Meghalaya", city: "Shillong"},
+  {sel: "Nagaland", id: "Nagaland", city: "Kohima"},
+  {sel: "Manipur", id: "Manipur", city: "Imphal"},
+  {sel: "Telangana", id: "Telangana", city: "Hyderabad"},
+  {sel: "Puducherry", id: "Puducherry", city: "Puducherry"},
+  {sel: "Andaman & Nicobar", id: "Andaman & Nicobar", city: "Port Blair"},
+  {sel: "Arunachal Pradesh", id: "Arunachal Pradesh", city: "Itanagar"},
+  {sel: "Himachal Pradesh", id: "Himachal Pradesh", city: "Shimla"},
+  {sel: "Jammu & Kashmir", id: "Jammu & Kashmir", city: "Srinagar"},
+  {sel: "Ladakh", id: "Ladakh", city: "Leh"},
+  {sel: "Chhattisgarh", id: "Chhattisgarh", city: "Raipur"},
+  {sel: "Dadra & Nagar Haveli", id: "Dadra & Nagar Haveli", city: "Silvassa"},
+  {sel: "Daman & Diu", id: "Daman & Diu", city: "Daman"},
+  {sel: "Lakshadweep", id: "Lakshadweep", city: "Kavaratti"},
+  {sel: "Chandigarh", id: "Chandigarh", city: "Chandigarh"}
+];
+
+function updateMapLabels() {
+  mapConfig.forEach((cfg) => {
+    fetch(`http://localhost:5000/api/weather?city=${encodeURIComponent(cfg.city)}`)
+      .then(r => r.json())
+      .then(data => {
+        // Find the map label matching the visible state name (the inner text includes state name)
+        document.querySelectorAll('.map-label').forEach(lbl => {
+          if (lbl.innerHTML.includes(cfg.id)) {
+            if (data.main && data.wind) {
+              lbl.innerHTML = `${cfg.id}<br>${data.main.temp}°C<br>Wind: ${data.wind.speed}`;
+            }
+          }
+        });
+      });
+  });
+}
+window.onload = updateMapLabels;
+
+</script>
+</html>
